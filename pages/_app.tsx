@@ -21,25 +21,26 @@ function handleTodoFormSubmit(formValues){
   newTodoList.push(newTodo);
   setTodoList(newTodoList);
 };
+function handleDeleteItem(todo){
+   console.log(todo);
+   const index = todoList.findIndex(x => x.id === todo.id);
+   if (index <0) return;
+   const newTodoList = [...todoList];
+  newTodoList.splice(index,1);
+  setTodoList(newTodoList)
+}
+
 
   return(
     <div className ="todoapp">
+      <Head><title>TodoApp-NextJS</title></Head>
     <h1> todos</h1>
     <TodoForm onSubmit={handleTodoFormSubmit} />
-    <TodoList todos={todoList} />
+    <TodoList todos={todoList} onDelClick={handleDeleteItem}/>
 
     </div>
   )
 }
 export default App;
 
-// function MyApp({ Component, pageProps }) {
-//   return (
-//   <div>
-//     <Head >
-//     <title>TodoApp - Leo Phan</title>
-//     </Head>
-//     <Component {...pageProps} />
-// </div>)}
 
-// export default MyApp

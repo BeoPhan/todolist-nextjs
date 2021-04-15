@@ -1,23 +1,26 @@
 import TodoForm from "./todoform";
 import Footer from "./footer";
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Todo from './todo'
 
 TodoList.propTypes = {
   todos: PropTypes.array,
-  onTodoClick: PropTypes.func,
+  onDelClick: PropTypes.func,
 };
 
 TodoList.defaultProps = {
   todos:[],
-  onTodoClick: null,
+  onDelClick: null,
 }
 
 
 export default function TodoList(props) {
-  const {todos, onTodoClick} = props;
+  const {todos, onDelClick} = props;
 
+  function handleDeleteClick(todo){
+    onDelClick(todo);
+  }
   return (
     
     <div >
@@ -26,7 +29,7 @@ export default function TodoList(props) {
         <label htmlFor="toggle-all" />
         <ul className = "todo-list">
             {todos.map(todo => (
-              <Todo key ={todo.id} {...{todo}}/>
+              <Todo key ={todo.id} {...{todo}} onDeleteClick={()=> handleDeleteClick(todo)}/>
             ))
             }
         </ul>

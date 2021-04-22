@@ -46,6 +46,8 @@ function Todo(props) {
         setText('')
 
     }
+
+
     return (
        <li className= {`${isEditing ? "editing" : ""} ${todo.isCompleted ? "completed" : ""} `}>
            {!isEditing ?

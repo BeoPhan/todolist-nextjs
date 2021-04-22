@@ -43,8 +43,9 @@ function handleEdited(FormEdited){
     ...FormEdited,
   }
   console.log(newTodo)
+  const index = todoList.findIndex(x => x.id === FormEdited.id);
   const newTodoList = [...todoList];
-  newTodoList.push(newTodo);
+  newTodoList.splice(index,1,newTodo);
   setTodoList(newTodoList);
 }
 

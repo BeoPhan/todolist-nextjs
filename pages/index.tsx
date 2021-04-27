@@ -9,6 +9,9 @@ TodoList.propTypes = {
   onDelClick: PropTypes.func,
   onEditTodo: PropTypes.func,
   onEdited: PropTypes.func,
+  markCompleted: PropTypes.func,
+  isCheckedAll: PropTypes.bool,
+  checkAllTodos: PropTypes.func,
 };
 
 TodoList.defaultProps = {
@@ -16,11 +19,14 @@ TodoList.defaultProps = {
   onDelClick: null,
   onEditTodo: null,
   onEditedTodo: null,
+  markCompleted: null,
+  isCheckedAll: null,
+  checkAllTodos: null,
 }
 
 
 export default function TodoList(props) {
-  const {todos, onDelClick, onEditTodo,onEditedTodo} = props;
+  const {todos, onDelClick, onEditTodo, onEditedTodo, markCompleted, isCheckedAll, checkAllTodos} = props;
   
   const [todoEditingId,setTodoEditingId] = useState(0);
 
@@ -35,14 +41,21 @@ export default function TodoList(props) {
   function handleEdited(formEdited){
     onEditedTodo(formEdited)
   };
- 
+
+  function handleMarkCompleted(todo){
+    markCompleted(todo)
+  }
+
+  function handleCheckedAll(){
+
+  }
 
   return (
     
     <div >
       <main className = "main">
-        <input className ="toggle-all" />
-        <label htmlFor="toggle-all" />
+        <input className ="toggle-all" type ="checkbox" checked = {isCheckedAll} onChange = {handleCheckedAll}/>
+        <label htmlFor="toggle-all"  onClick = {checkAllTodos}/>
         <ul className = "todo-list">
             {todos.map(todo => (
               <Todo 
@@ -50,14 +63,13 @@ export default function TodoList(props) {
               onDeleteClick={()=> handleDeleteClick(todo)}
               onEditClick = {()=> handleEditClick(todo)}
               onEdited = {handleEdited}
+              markCompleted = {handleMarkCompleted}
               {...props}
               />
             ))
             }
         </ul>
-      </main>
-      <Footer />
-      
+      </main>      
     
     </div>
   )

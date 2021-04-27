@@ -6,19 +6,22 @@ Todo.propTypes = {
     onDeleteClick: PropTypes.func,
     onEditClick: PropTypes.func,
     onEdited: PropTypes.func,
+    markCompleted: PropTypes.func,
 }; 
 
 Todo.defaultProps ={
     onDeleteClick: null,
     onEditClick:null,
     onEdited:null,
+    markCompleted: null,
 }
 function Todo(props) {
     const {
         todo,
         onDeleteClick,
         onEditClick,
-        onEdited
+        onEdited,
+        markCompleted
       } = props;
       const [text, setText] = useState(todo.text);
       const [isEditing,setIsEditing] = useState(false)
@@ -39,6 +42,7 @@ function Todo(props) {
         const formEdited = {
             id: todo.id,
             text: text,
+            isCompleted: false,
         };
         onEdited(formEdited);
 
@@ -52,8 +56,11 @@ function Todo(props) {
        <li className= {`${isEditing ? "editing" : ""} ${todo.isCompleted ? "completed" : ""} `}>
            {!isEditing ?
            <div className = "view">
-               <input className ="toggle" 
+               <input 
+               className ="toggle" 
                type = "checkbox"
+               checked = {todo.isCompleted}
+               onChange = {()=>markCompleted(todo)}
                />
                <label>{todo.text}</label>
                <button className="destroy" onClick={(e)=> {e.preventDefault(); handleDelete(todo);}}></button>

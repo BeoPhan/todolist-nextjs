@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 // }
 
 function Footer(props) {
-  const {status, setStatusFilter, numOfTodos, numOfTodosLeft } = props; 
+  const {status, setStatusFilter, numOfTodos, numOfTodosLeft, clearCompleted } = props; 
     //Filter Buttons
       const filterBtns = [
         {
@@ -50,7 +50,7 @@ function Footer(props) {
         ))}
       </ul>
      
-      { numOfTodos > numOfTodosLeft && <button className="clear-completed">
+      { numOfTodos > numOfTodosLeft && <button className="clear-completed" onClick={clearCompleted}>
           Clear completed
         </button>}
       
